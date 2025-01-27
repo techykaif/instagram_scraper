@@ -1,10 +1,8 @@
-## Instagram Scraper with Selenium
-
-This Python script uses Selenium to automate logging into Instagram and scraping user profile data. The script extracts specific spans from a user's profile and saves them as a JSON file.
+## Instagram Scraper
 
 ## Features
-- Automated Instagram Login**: Logs into Instagram using provided credentials.
-- Profile Scraping**: Extracts specific span texts from user profiles.
+- Automated Instagram Login: Logs into Instagram using provided credentials.
+- Profile Scraping: Extracts specific span texts from user profiles.
 - JSON Output: Saves the extracted data in a JSON file.
 - Popup Handling: Handles common Instagram popups during the scraping process.
 - Developer Tools Integration**: Automatically opens Chrome Developer Tools (optional).
