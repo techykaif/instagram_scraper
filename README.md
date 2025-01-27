@@ -25,12 +25,14 @@ The script uses the `webdriver_manager` library to manage the Chrome WebDriver.
 ### 1. Clone the Repository
 ```bash
 git clone https://github.com/techykaif/instagram_scraper
+cd instagram_scraper
 ```
 
 ### 2. Install Dependencies
 Run:
 ```bash
 pip install -r requirements.txt
+
 ```
 
 ### 3. Run the Script
