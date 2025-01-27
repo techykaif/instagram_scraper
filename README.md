@@ -43,6 +43,7 @@ python instagram.py
 
 ### 4. Provide Instagram Credentials
 Enter your Instagram username and password when prompted.
+Use a Fake Instagram Account.
 
 ### 5. Start Scraping
 - Enter the username of the Instagram profile you want to scrape.
