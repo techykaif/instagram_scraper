@@ -38,9 +38,8 @@ pip install -r requirements.txt
 ### 3. Run the Script
 Execute the script:
 ```bash
-python script_name.py
+python instagram.py
 ```
-Replace `script_name.py` with the name of the Python file.
 
 ### 4. Provide Instagram Credentials
 Enter your Instagram username and password when prompted.
