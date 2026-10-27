@@ -1,0 +1,80 @@
+
+(() => {
+  const PROFILE_URL = location.href.split("?")[0];
+  const posts = new Map();
+
+  function collectPosts() {
+    document.querySelectorAll('a[href*="/p/"], a[href*="/reel/"], a[href*="/tv/"]')
+      .forEach(link => {
+        const postUrl = new URL(link.getAttribute("href"), location.origin).href;
+        const images = [...link.querySelectorAll("img")]
+          .map(img => ({
+            src: img.currentSrc || img.src,
+            alt: img.alt || ""
+          }))
+          .filter(img => img.src && !img.src.startsWith("data:"));
+
+        if (!posts.has(postUrl)) {
+          posts.set(postUrl, {
+            postUrl,
+            images
+          });
+        } else if (images.length) {
+          posts.get(postUrl).images = images;
+        }
+      });
+
+    console.log(`Collected ${posts.size} loaded posts.`);
+  }
+
+  function exportManifest() {
+    collectPosts();
+
+    const rows = [
+      ["profileUrl", "postUrl", "imageUrl", "imageAlt"],
+      ...[...posts.values()].flatMap(post =>
+        post.images.map(img => [
+          PROFILE_URL,
+          post.postUrl,
+          img.src,
+          img.alt
+        ])
+      )
+    ];
+
+    const csv = rows.map(row =>
+      row.map(value =>
+        `"${String(value).replace(/"/g, '""')}"`
+      ).join(",")
+    ).join("\r\n");
+
+    const blob = new Blob(["\uFEFF" + csv], {
+      type: "text/csv;charset=utf-8;"
+    });
+
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "instagram_post_evidence_manifest.csv";
+    a.click();
+
+    setTimeout(() => URL.revokeObjectURL(url), 1500);
+    console.log("Downloaded post URL and image URL manifest.");
+  }
+
+  window.postEvidenceCollector = {
+    collect: collectPosts,
+    export: exportManifest,
+    get results() {
+      return [...posts.values()];
+    }
+  };
+
+  collectPosts();
+
+  console.log(`
+Scroll through the profile normally to load more posts.
+Run postEvidenceCollector.collect() after scrolling.
+When finished, run postEvidenceCollector.export().
+`);
+})();
